@@ -4,7 +4,7 @@ dotenv.config();
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { handleErrors } from "../database/errors.js";
-import { bookModel } from "../models/book.model.js";
+import { userModel } from "../user/user.model.js";
 
 export const verifyToken = (req, res, next) => {
     try {
@@ -36,7 +36,7 @@ export const verifyUser = async (req, res, next) => {
             throw { code: "403" };
         }
 
-        const { rows: [userDB], rowCount } = await bookModel.findUserByEmail({ email });
+        const { rows: [userDB], rowCount } = await userModel.findUserByEmail({ email });
         if (!rowCount) {
             throw { code: "404" };
         }
@@ -57,7 +57,7 @@ export const verifyUser = async (req, res, next) => {
 
 export const verifyAdmin = async (req, res, next) => {
     try {
-        const { rows: [userDB] } = await bookModel.findUserByEmail({ email: req.email });
+        const { rows: [userDB] } = await userModel.findUserByEmail({ email: req.email });
         if (!userDB.is_admin) {
             throw { code: "408" };
         }
