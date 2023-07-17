@@ -44,6 +44,17 @@ const getLogin = async (req, res) => {
     }
 }
 
+const getProfile = async (req, res) => {
+    try {
+        const result = await userModel.findUserByEmail({ email: req.email })
+        return res.status(200).json({ ok: true, result: result.rows[0]})
+    } catch (error) {
+        const { status, message } = handleErrors(error.code)
+        console.log(error, message)
+        return res.status(status).json({ ok: false, result: message });
+    }
+}
+
 const updateUser = async (req, res) => {
 
     const { name, lastname, username, password } = req.body
@@ -53,9 +64,9 @@ const updateUser = async (req, res) => {
         let hashPassword = ""
         if (password.trim() !== "") {
             hashPassword = await bcrypt.hash(password, 10)
-        } 
+        }
         const result = await userModel.update(user.rows[0].id, name, lastname, username, hashPassword)
-        return res.status(200).json({ ok: true, result: result.rows[0]})
+        return res.status(200).json({ ok: true, result: result.rows[0] })
     } catch (error) {
         const { status, message } = handleErrors(error.code)
         console.log(error, message)
@@ -67,6 +78,6 @@ const updateUser = async (req, res) => {
 export const userController = {
     addUser,
     getLogin,
+    getProfile,
     updateUser
-
 }

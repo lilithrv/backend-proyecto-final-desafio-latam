@@ -11,7 +11,7 @@ const createUser = async (name, lastname, email, username, birthday, password) =
     }
 }
 
-const findUserByEmail = async ({ email }) => {                                        //para no registra usuario ya existente en db
+const findUserByEmail = async ({ email }) => {                                        //para no registrar usuario ya existente en db
     try {
         const text = "SELECT * FROM users WHERE UPPER(email) = UPPER($1)"
         const result = await pool.query(text, [email])
@@ -22,7 +22,10 @@ const findUserByEmail = async ({ email }) => {                                  
     }
 }
 
+
 const update = async (id, name, lastname, username, password) => {
+    //En el front no se va a mostrar la contraseña; al actualizar el perfil ese campo estará en blanco
+    //Si se completa, se actualiza la contraseña, si no, los otros datos
     try {
         let values = [name, lastname, username]
         let text = "UPDATE users SET name = $1, lastname = $2, username =$3";

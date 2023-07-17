@@ -13,9 +13,9 @@ The server provides the following routes:
 
 - `POST: /api/v1/register `: Allows registration of new users
 - `POST: /api/v1/login` : Receives a user's credentials and returns a token generated with JWT. The email address of the registered user is included in the token payload
-- `GET: /api/v1/user/profile` :
-- `PUT: /api/v1/user/profile/:id` :
-- `GET: /api/v1/authors`: Returns 
+- `GET: /api/v1/user/profile` : Allows to view user profile data
+- `PUT: /api/v1/user/profile` : Allows to update a user's profile information 
+- `GET: /api/v1/authors`: 
 - `POST: /api/v1/authors` :
 - `GET: /api/v1/categories`:
 - `POST: /api/v1/categories` :
@@ -97,7 +97,7 @@ To update a profile:
 
 ```
 METHOD: UPDATE
-ENDPOINT: localhost:3000/api/v1/user/profile/:id
+ENDPOINT: localhost:3000/api/v1/user/profile
 ```
 
 ```JSON
