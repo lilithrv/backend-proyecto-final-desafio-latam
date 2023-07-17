@@ -65,11 +65,22 @@ const createCategory = async (name) => {
     }
 }
 
+const findAll = async () => {
+    try {
+        const result = await pool.query("SELECT * FROM books");
+        return result.rows
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
 export const bookModel = {
     findAuthors,
     findAnAuthor,
     findCategories,
     findACategory,
     createAuthor,
-    createCategory
+    createCategory,
+    findAll
 }

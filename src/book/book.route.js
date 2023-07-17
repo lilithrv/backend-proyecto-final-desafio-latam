@@ -11,5 +11,6 @@ router.get("/authors", bookController.getAuthor);
 router.get("/categories", bookController.getCategory);
 router.post("/authors", verifyToken, verifyAdmin, bookController.addAuthor);
 router.post("/categories", verifyToken, verifyAdmin, bookController.addCategory)
+router.get("/books", bookController.getAllBooks)
 
 export default router;
