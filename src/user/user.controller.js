@@ -6,7 +6,7 @@ import { userModel } from "./user.model.js";
 const addUser = async (req, res) => {
     const { name, lastname, email, username, birthday, password } = req.body
     try {
-        const existingUser = await userModel.findUserByEmail({email})
+        const existingUser = await userModel.findUserByEmail({ email })
         console.log(existingUser)
 
         if (existingUser.rows.length > 0) {
@@ -44,9 +44,29 @@ const getLogin = async (req, res) => {
     }
 }
 
+const updateUser = async (req, res) => {
+
+    const { name, lastname, username, password } = req.body
+
+    try {
+        const user = await userModel.findUserByEmail({ email: req.email })
+        let hashPassword = ""
+        if (password.trim() !== "") {
+            hashPassword = await bcrypt.hash(password, 10)
+        } 
+        const result = await userModel.update(user.rows[0].id, name, lastname, username, hashPassword)
+        return res.status(200).json({ ok: true, result: result.rows[0]})
+    } catch (error) {
+        const { status, message } = handleErrors(error.code)
+        console.log(error, message)
+        return res.status(status).json({ ok: false, result: message });
+    }
+}
+
 
 export const userController = {
     addUser,
     getLogin,
- 
+    updateUser
+
 }
