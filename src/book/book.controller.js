@@ -1,4 +1,3 @@
-import { readFile } from 'fs/promises';
 import { handleErrors } from "../database/errors.js";
 import { bookModel } from "./book.model.js";
 
@@ -68,8 +67,9 @@ const addCategory = async (req, res) => {
 }
 
 const getAllBooks = async (req, res) => {
+    const { sort, limit, page } = req.query;
     try {
-        const result = await bookModel.findAll()
+        const result = await bookModel.findAll(sort, limit, page)
         return res.json({ ok: true, result });
     } catch (error) {
         const { status, message } = handleErrors(error.code)
