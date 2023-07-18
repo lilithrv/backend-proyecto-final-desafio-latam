@@ -67,9 +67,9 @@ const addCategory = async (req, res) => {
 }
 
 const getAllBooks = async (req, res) => {
-    const { sort, limit, page } = req.query;
+    const { sort, limit, page, category_id, author_id } = req.query;
     try {
-        const result = await bookModel.findAll(sort, limit, page)
+        const result = await bookModel.findAll(sort, limit, page, category_id, author_id)
         return res.json({ ok: true, result });
     } catch (error) {
         const { status, message } = handleErrors(error.code)

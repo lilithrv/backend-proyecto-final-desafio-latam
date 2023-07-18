@@ -67,13 +67,30 @@ const createCategory = async (name) => {
     }
 }
 
-const findAll = async (sort, limit , page ) => {
+const findAll = async (sort, limit, page, category_id, author_id) => {
 
     let query =
-        // "SELECT books.id, books.title, books.image, books.description, books.price, books.stock, (SELECT json_build_object('id', id, 'name', name) FROM categories WHERE id = books.category_id) AS category, (SELECT json_build_object('id', id, 'name', name) FROM authors WHERE id = books.author_id) AS author FROM books"
         "SELECT books.id, books.title, books.image, books.description, books.price, books.stock, json_build_object('id', categories.id, 'name', categories.name) AS category, json_build_object('id', authors.id, 'name', authors.name) AS author FROM books JOIN categories ON books.category_id = categories.id JOIN authors ON books.author_id = authors.id"
 
     const arrayValues = [];
+
+    let filters = [];  //filters: category_id, author_id
+                       //sort: author.name, title, price
+
+    if (category_id){
+        filters.push("category_id = %s")                                //permite seguir lógica de pg-format
+        arrayValues.push(category_id)
+    }
+
+    if (author_id){
+        filters.push("author_id = %s")
+        arrayValues.push(author_id)
+    }
+
+    if (filters.length > 0) {
+        filters = filters.join(" AND ");
+        query += ` WHERE ${filters}`;
+    }
 
     if (sort) {
         query += " ORDER BY %s %s";
@@ -93,8 +110,9 @@ const findAll = async (sort, limit , page ) => {
     }
 
     try {
+        console.log(arrayValues)
         const finalQuery = format(query, ...arrayValues);
-        console.log(query)
+        console.log(finalQuery);
         const result = await pool.query(finalQuery);
         return result.rows
     } catch (error) {

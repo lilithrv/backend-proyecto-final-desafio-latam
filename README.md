@@ -15,10 +15,11 @@ The server provides the following routes:
 - `POST: /api/v1/login` : Receives a user's credentials and returns a token generated with JWT. The email address of the registered user is included in the token payload
 - `GET: /api/v1/user/profile` : Allows to view user profile data
 - `PUT: /api/v1/user/profile` : Allows to update a user's profile information 
-- `GET: /api/v1/authors`: 
-- `POST: /api/v1/authors` :
-- `GET: /api/v1/categories`:
-- `POST: /api/v1/categories` :
+- `GET: /api/v1/books`: Returns books data and allows sorting, limiting and pagination of information. Also filter by category and author
+- `GET: /api/v1/authors`: Returns list of all authors belonging to the model books
+- `POST: /api/v1/authors` : Allows you to add a new author
+- `GET: /api/v1/categories`: Returns list of all categories belonging to the model books
+- `POST: /api/v1/categories` : Allows you to add a new category
 
 <br>
 
