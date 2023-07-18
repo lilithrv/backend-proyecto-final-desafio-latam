@@ -15,10 +15,13 @@ The server provides the following routes:
 - `POST: /api/v1/login` : Receives a user's credentials and returns a token generated with JWT. The email address of the registered user is included in the token payload
 - `GET: /api/v1/user/profile` : Allows to view user profile data
 - `PUT: /api/v1/user/profile` : Allows to update a user's profile information 
-- `GET: /api/v1/authors`: 
-- `POST: /api/v1/authors` :
-- `GET: /api/v1/categories`:
-- `POST: /api/v1/categories` :
+- `GET: /api/v1/books`: Returns books data and allows sorting, limiting and pagination of information. Also filter by category and author
+- `GET: /api/v1/books/:id`: Returns a specific book from the database
+- `POST: /api/v1/books`: Allows you to add a new book
+- `GET: /api/v1/authors`: Returns list of all authors belonging to the model books
+- `POST: /api/v1/authors` : Allows you to add a new author
+- `GET: /api/v1/categories`: Returns list of all categories belonging to the model books
+- `POST: /api/v1/categories` : Allows you to add a new category
 
 <br>
 
@@ -110,6 +113,76 @@ BODY JSON
    "password": ""
 }
 ```
+
+To get all books:
+
+```
+METHOD: GET
+ENDPOINT: localhost:3000/api/v1/books
+```
+
+To sort (asc/desc), limit and pagination:
+
+- sort[title]
+- sort[authors.name]
+- sort[price]
+- limit
+- page
+
+To filter by:
+- category_id
+- author_id
+
+Examples:
+
+```
+localhost:3000/api/v1/books/?sort[title]=desc
+```
+
+```
+localhost:3000/api/v1/books/?sort[authors.name]=desc
+```
+
+```
+localhost:3000/api/v1/books/?limit=12&page=5
+```
+
+```
+localhost:3000/api/v1/books/?author_id=7
+```
+```
+localhost:3000/api/v1/books/?category_id=1&limit=5
+```
+
+<br>
+
+To get a specific book:
+
+```
+METHOD: GET
+ENDPOINT: localhost:3000/api/v1/books/:id
+```
+
+To add a new book:
+
+```
+METHOD: POST
+ENDPOINT: localhost:3000/api/v1/books/
+```
+
+```JSON
+BODY JSON
+
+{
+   "title": "",
+   "image": "",
+   "description": "",
+   "stock": ,
+   "category_id": ,
+   "author_id": 
+}
+```
+
 To get the list of authors:
 
 ```

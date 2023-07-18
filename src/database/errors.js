@@ -70,14 +70,34 @@ export const handleErrors = (code) => {
     case "409":
       return {
         status: 404,
-        message: ""
+        message: "You must specify the post id"
       };
     case "410":
       return {
         status: 404,
-        message: ""
+        message: "File not found"
       };
     case "411":
+      return {
+        status: 404,
+        message: "You must complete all fields: title, image, description, price, stock, category_id, author_id"
+      };
+    case "412":
+      return {
+        status: 404,
+        message: "Price and stock must be greater than 0"
+      };
+    case "413":
+      return {
+        status: 404,
+        message: ""
+      };
+    case "414":
+      return {
+        status: 404,
+        message: ""
+      };
+    case "415":
       return {
         status: 404,
         message: ""
