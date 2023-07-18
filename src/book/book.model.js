@@ -121,6 +121,17 @@ const findAll = async (sort, limit, page, category_id, author_id) => {
     }
 }
 
+const findOne = async (id) => {
+    try {
+        const text = "SELECT * FROM books WHERE id = $1";
+        const result = await pool.query(text, [id])
+        return result
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
 export const bookModel = {
     findAuthors,
     findAnAuthor,
@@ -128,5 +139,6 @@ export const bookModel = {
     findACategory,
     createAuthor,
     createCategory,
-    findAll
+    findAll,
+    findOne
 }

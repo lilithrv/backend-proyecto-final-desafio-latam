@@ -70,12 +70,12 @@ export const handleErrors = (code) => {
     case "409":
       return {
         status: 404,
-        message: ""
+        message: "You must specify the post id"
       };
     case "410":
       return {
         status: 404,
-        message: ""
+        message: "File not found"
       };
     case "411":
       return {
