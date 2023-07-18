@@ -15,6 +15,7 @@ The server provides the following routes:
 - `POST: /api/v1/login` : Receives a user's credentials and returns a token generated with JWT. The email address of the registered user is included in the token payload
 - `GET: /api/v1/user/profile` : Allows to view user profile data
 - `PUT: /api/v1/user/profile` : Allows to update a user's profile information 
+- `POST: /api/v1/user/favorites` : Allows to add favorite books per user
 - `GET: /api/v1/books`: Returns books data and allows sorting, limiting and pagination of information. Also filter by category and author
 - `GET: /api/v1/books/:id`: Returns a specific book from the database
 - `POST: /api/v1/books`: Allows you to add a new book
@@ -101,6 +102,7 @@ To update a profile:
 ```
 METHOD: UPDATE
 ENDPOINT: localhost:3000/api/v1/user/profile
+AUTHORIZATION: Type Bearer Token
 ```
 
 ```JSON
@@ -111,6 +113,23 @@ BODY JSON
    "lastname": "",
    "username": "",
    "password": ""
+}
+```
+
+To add a favorite book:
+
+```
+METHOD: POST
+ENDPOINT:localhost:3000/api/v1/user/favorites
+AUTHORIZATION: Type Bearer Token
+```
+
+
+```JSON
+BODY JSON
+
+{
+   "book_id":  
 }
 ```
 
@@ -168,6 +187,8 @@ To add a new book:
 ```
 METHOD: POST
 ENDPOINT: localhost:3000/api/v1/books/
+AUTHORIZATION: Type Bearer Token 
+ROL: admin
 ```
 
 ```JSON
@@ -195,6 +216,8 @@ To add an author:
 ```
 METHOD: POST
 ENDPOINT: localhost:3000/api/v1/authors
+AUTHORIZATION: Type Bearer Token 
+ROL: admin
 ```
 
 
@@ -218,6 +241,8 @@ To add a category:
 ```
 METHOD: POST
 ENDPOINT: localhost:3000/api/v1/categories
+AUTHORIZATION: Type Bearer Token
+ROL: admin
 ```
 
 
