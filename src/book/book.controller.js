@@ -98,6 +98,28 @@ const getOneBook = async (req, res) => {
     }
 }
 
+const addBook = async (req, res) => {
+
+    const { title, image, description, price, stock, category_id, author_id } = req.body
+
+    try {
+          if (price <= 0 || stock <= 0){
+            throw { code: "412" };
+        }
+
+        if (!title || !image || !description || !price || !stock || !category_id || !author_id) {
+            throw { code: "411" };
+        } 
+        
+        const result = await bookModel.createBook(title, image, description, price, stock, category_id, author_id)
+        return res.json({ok: true, result: result.rows[0]})
+    } catch (error) {
+        const { status, message } = handleErrors(error.code)
+        console.log(error, message)
+        return res.status(status).json({ ok: false, result: message });
+    }
+}
+
 export const bookController = {
     getAuthor,
     getCategory,
@@ -105,4 +127,5 @@ export const bookController = {
     addCategory,
     getAllBooks,
     getOneBook,
+    addBook
 }

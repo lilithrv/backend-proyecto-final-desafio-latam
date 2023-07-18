@@ -75,14 +75,14 @@ const findAll = async (sort, limit, page, category_id, author_id) => {
     const arrayValues = [];
 
     let filters = [];  //filters: category_id, author_id
-                       //sort: authors.name, title, price
+    //sort: authors.name, title, price
 
-    if (category_id){
+    if (category_id) {
         filters.push("category_id = %s")                                //permite seguir lógica de pg-format
         arrayValues.push(category_id)
     }
 
-    if (author_id){
+    if (author_id) {
         filters.push("author_id = %s")
         arrayValues.push(author_id)
     }
@@ -132,6 +132,18 @@ const findOne = async (id) => {
     }
 }
 
+const createBook = async (title, image, description, price, stock, category_id, author_id) => {
+    try {
+        const text = "INSERT INTO books (title, image, description, price, stock, category_id, author_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *"
+        const result = await pool.query(text,[title, image, description, price, stock, category_id, author_id] )
+        return result
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+
 export const bookModel = {
     findAuthors,
     findAnAuthor,
@@ -140,5 +152,6 @@ export const bookModel = {
     createAuthor,
     createCategory,
     findAll,
-    findOne
+    findOne,
+    createBook
 }

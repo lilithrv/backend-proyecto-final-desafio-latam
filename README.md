@@ -17,6 +17,7 @@ The server provides the following routes:
 - `PUT: /api/v1/user/profile` : Allows to update a user's profile information 
 - `GET: /api/v1/books`: Returns books data and allows sorting, limiting and pagination of information. Also filter by category and author
 - `GET: /api/v1/books/:id`: Returns a specific book from the database
+- `POST: /api/v1/books`: Allows you to add a new book
 - `GET: /api/v1/authors`: Returns list of all authors belonging to the model books
 - `POST: /api/v1/authors` : Allows you to add a new author
 - `GET: /api/v1/categories`: Returns list of all categories belonging to the model books
@@ -160,6 +161,26 @@ To get a specific book:
 ```
 METHOD: GET
 ENDPOINT: localhost:3000/api/v1/books/:id
+```
+
+To add a new book:
+
+```
+METHOD: POST
+ENDPOINT: localhost:3000/api/v1/books/
+```
+
+```JSON
+BODY JSON
+
+{
+   "title": "",
+   "image": "",
+   "description": "",
+   "stock": ,
+   "category_id": ,
+   "author_id": 
+}
 ```
 
 To get the list of authors:
