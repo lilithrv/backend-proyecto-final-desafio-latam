@@ -75,7 +75,7 @@ const findAll = async (sort, limit, page, category_id, author_id) => {
     const arrayValues = [];
 
     let filters = [];  //filters: category_id, author_id
-                       //sort: author.name, title, price
+                       //sort: authors.name, title, price
 
     if (category_id){
         filters.push("category_id = %s")                                //permite seguir lógica de pg-format

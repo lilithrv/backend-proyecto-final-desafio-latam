@@ -111,6 +111,49 @@ BODY JSON
    "password": ""
 }
 ```
+
+To get all books:
+
+```
+METHOD: GET
+ENDPOINT: localhost:3000/api/v1/books
+```
+
+To sort (asc/desc), limit and pagination:
+
+- sort[title]
+- sort[authors.name]
+- sort[price]
+- limit
+- page
+
+To filter by:
+- category_id
+- author_id
+
+Examples:
+
+```
+localhost:3000/api/v1/books/?sort[title]=desc
+```
+
+```
+localhost:3000/api/v1/books/?sort[authors.name]=desc
+```
+
+```
+localhost:3000/api/v1/books/?limit=12&page=5
+```
+
+```
+localhost:3000/api/v1/books/?author_id=7
+```
+```
+localhost:3000/api/v1/books/?category_id=1&limit=5
+```
+
+<br>
+
 To get the list of authors:
 
 ```
