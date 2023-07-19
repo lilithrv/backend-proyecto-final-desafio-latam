@@ -154,6 +154,16 @@ const latest = async () => {
     }
 }
 
+const updateStock = async (stock, id) => {
+    try {
+       const text = "UPDATE books SET stock = $1 WHERE id = $2 RETURNING *"
+       const result = await pool.query(text, [stock, id])
+       return result
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
 
 export const bookModel = {
     findAuthors,
@@ -165,5 +175,6 @@ export const bookModel = {
     findAll,
     findOne,
     createBook,
-    latest
+    latest,
+    updateStock
 }
