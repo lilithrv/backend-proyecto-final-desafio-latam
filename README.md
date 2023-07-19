@@ -15,8 +15,12 @@ The server provides the following routes:
 - `POST: /api/v1/login` : Receives a user's credentials and returns a token generated with JWT. The email address of the registered user is included in the token payload
 - `GET: /api/v1/user/profile` : Allows to view user profile data
 - `PUT: /api/v1/user/profile` : Allows to update a user's profile information 
+- `GET: /api/v1/user/favorites`: Allows to view the user's favorite books
+- `POST: /api/v1/user/favorites` : Allows to add favorite books per user
+- `DELETE: /api/v1/user/favorites` : Allows to delete of favorite books per user
 - `GET: /api/v1/books`: Returns books data and allows sorting, limiting and pagination of information. Also filter by category and author
 - `GET: /api/v1/books/:id`: Returns a specific book from the database
+- `GET: /api/v1/books/latest`: Returns the last 10 books added
 - `POST: /api/v1/books`: Allows you to add a new book
 - `GET: /api/v1/authors`: Returns list of all authors belonging to the model books
 - `POST: /api/v1/authors` : Allows you to add a new author
@@ -101,6 +105,7 @@ To update a profile:
 ```
 METHOD: UPDATE
 ENDPOINT: localhost:3000/api/v1/user/profile
+AUTHORIZATION: Type Bearer Token
 ```
 
 ```JSON
@@ -111,6 +116,47 @@ BODY JSON
    "lastname": "",
    "username": "",
    "password": ""
+}
+```
+
+To view the user's favorite books:
+
+```
+METHOD: GET
+ENDPOINT:localhost:3000/api/v1/user/favorites
+AUTHORIZATION: Type Bearer Token
+```
+
+To add book to favorites:
+
+```
+METHOD: POST
+ENDPOINT:localhost:3000/api/v1/user/favorites
+AUTHORIZATION: Type Bearer Token
+```
+
+
+```JSON
+BODY JSON
+
+{
+   "book_id":  
+}
+```
+
+To remove a book from favorites:
+
+```
+METHOD: DELETE
+ENDPOINT:localhost:3000/api/v1/user/favorites
+AUTHORIZATION: Type Bearer Token
+```
+
+```JSON
+BODY JSON
+
+{
+   "book_id":  
 }
 ```
 
@@ -163,11 +209,20 @@ METHOD: GET
 ENDPOINT: localhost:3000/api/v1/books/:id
 ```
 
+To get the last 10 books added:
+
+```
+METHOD: GET
+ENDPOINT: localhost:3000/api/v1/books/latest
+```
+
 To add a new book:
 
 ```
 METHOD: POST
 ENDPOINT: localhost:3000/api/v1/books/
+AUTHORIZATION: Type Bearer Token 
+ROL: admin
 ```
 
 ```JSON
@@ -177,10 +232,27 @@ BODY JSON
    "title": "",
    "image": "",
    "description": "",
+   "price":  ,
    "stock": ,
    "category_id": ,
    "author_id": 
 }
+```
+
+Example:
+
+```JSON
+
+{
+   "title": "El Aleph",
+   "image": "https://www.antartica.cl/media/catalog/product/9/7/9789875666481_1.png?quality=80&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700&format=jpeg",
+   "description": "",
+   "price": 10990,
+   "stock": 25,
+   "category_id": 10,
+   "author_id": 32
+}
+
 ```
 
 To get the list of authors:
@@ -195,6 +267,8 @@ To add an author:
 ```
 METHOD: POST
 ENDPOINT: localhost:3000/api/v1/authors
+AUTHORIZATION: Type Bearer Token 
+ROL: admin
 ```
 
 
@@ -218,6 +292,8 @@ To add a category:
 ```
 METHOD: POST
 ENDPOINT: localhost:3000/api/v1/categories
+AUTHORIZATION: Type Bearer Token
+ROL: admin
 ```
 
 

@@ -27,6 +27,11 @@ export const handleErrors = (code) => {
         status: 400,
         message: "Failed to connect to the database",
       };
+    case "23503":
+      return {
+        status: 404,
+        message: "Object does not exist"
+      };
     case "401":
       return {
         status: 404,
@@ -90,12 +95,12 @@ export const handleErrors = (code) => {
     case "413":
       return {
         status: 404,
-        message: ""
+        message: "You must specify the book_id"
       };
     case "414":
       return {
         status: 404,
-        message: ""
+        message: "The book is already added to your favorites"
       };
     case "415":
       return {
