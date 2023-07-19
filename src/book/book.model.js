@@ -135,7 +135,18 @@ const findOne = async (id) => {
 const createBook = async (title, image, description, price, stock, category_id, author_id) => {
     try {
         const text = "INSERT INTO books (title, image, description, price, stock, category_id, author_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *"
-        const result = await pool.query(text,[title, image, description, price, stock, category_id, author_id] )
+        const result = await pool.query(text, [title, image, description, price, stock, category_id, author_id])
+        return result
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+const latest = async () => {
+    try {
+        const text = "SELECT * FROM books ORDER BY id DESC LIMIT 10"
+        const result = await pool.query(text)
         return result
     } catch (error) {
         console.log(error)
@@ -153,5 +164,6 @@ export const bookModel = {
     createCategory,
     findAll,
     findOne,
-    createBook
+    createBook,
+    latest
 }

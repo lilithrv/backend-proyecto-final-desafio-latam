@@ -20,6 +20,7 @@ The server provides the following routes:
 - `DELETE: /api/v1/user/favorites` : Allows to delete of favorite books per user
 - `GET: /api/v1/books`: Returns books data and allows sorting, limiting and pagination of information. Also filter by category and author
 - `GET: /api/v1/books/:id`: Returns a specific book from the database
+- `GET: /api/v1/books/latest`: Returns the last 10 books added
 - `POST: /api/v1/books`: Allows you to add a new book
 - `GET: /api/v1/authors`: Returns list of all authors belonging to the model books
 - `POST: /api/v1/authors` : Allows you to add a new author
@@ -208,6 +209,13 @@ METHOD: GET
 ENDPOINT: localhost:3000/api/v1/books/:id
 ```
 
+To get the last 10 books added:
+
+```
+METHOD: GET
+ENDPOINT: localhost:3000/api/v1/books/latest
+```
+
 To add a new book:
 
 ```
@@ -224,10 +232,27 @@ BODY JSON
    "title": "",
    "image": "",
    "description": "",
+   "price":  ,
    "stock": ,
    "category_id": ,
    "author_id": 
 }
+```
+
+Example:
+
+```JSON
+
+{
+   "title": "El Aleph",
+   "image": "https://www.antartica.cl/media/catalog/product/9/7/9789875666481_1.png?quality=80&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700&format=jpeg",
+   "description": "",
+   "price": 10990,
+   "stock": 25,
+   "category_id": 10,
+   "author_id": 32
+}
+
 ```
 
 To get the list of authors:
