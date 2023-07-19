@@ -2,6 +2,18 @@ import { handleErrors } from "../database/errors.js";
 import { userModel } from "../user/user.model.js";
 import { favoritesModel } from "./favorites.model.js";
 
+const getFavorites = async (req, res) => {
+    try {
+        const user = await userModel.findUserByEmail({ email: req.email })
+        const result = await favoritesModel.findFavorite(user.rows[0].id)
+        return res.json({ok: true, result: result.rows})
+    } catch (error) {
+        const { status, message } = handleErrors(error.code)
+        console.log(error, message)
+        return res.status(status).json({ ok: false, result: message });
+    }
+}
+
 const addFavorite = async (req, res) => {
 
     const { book_id } = req.body
@@ -18,7 +30,7 @@ const addFavorite = async (req, res) => {
         }
 
         const result = await favoritesModel.insertFavorite(user.rows[0].id, book_id)
-        return res.json({ ok: true,  message: "Book added as favorite", result: result.rows[0] })
+        return res.json({ ok: true, message: "Book added as favorite", result: result.rows[0] })
     } catch (error) {
         const { status, message } = handleErrors(error.code)
         console.log(error, message)
@@ -48,6 +60,7 @@ const deleteFavorite = async (req, res) => {
 }
 
 export const favoritesController = {
+    getFavorites,
     addFavorite,
     deleteFavorite
 }

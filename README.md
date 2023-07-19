@@ -15,6 +15,7 @@ The server provides the following routes:
 - `POST: /api/v1/login` : Receives a user's credentials and returns a token generated with JWT. The email address of the registered user is included in the token payload
 - `GET: /api/v1/user/profile` : Allows to view user profile data
 - `PUT: /api/v1/user/profile` : Allows to update a user's profile information 
+- `GET: /api/v1/user/favorites`: Allows to view the user's favorite books
 - `POST: /api/v1/user/favorites` : Allows to add favorite books per user
 - `DELETE: /api/v1/user/favorites` : Allows to delete of favorite books per user
 - `GET: /api/v1/books`: Returns books data and allows sorting, limiting and pagination of information. Also filter by category and author
@@ -117,6 +118,14 @@ BODY JSON
 }
 ```
 
+To view the user's favorite books:
+
+```
+METHOD: GET
+ENDPOINT:localhost:3000/api/v1/user/favorites
+AUTHORIZATION: Type Bearer Token
+```
+
 To add book to favorites:
 
 ```
@@ -134,7 +143,7 @@ BODY JSON
 }
 ```
 
-To remove a book from favorites
+To remove a book from favorites:
 
 ```
 METHOD: DELETE
