@@ -16,6 +16,7 @@ The server provides the following routes:
 - `GET: /api/v1/user/profile` : Allows to view user profile data
 - `PUT: /api/v1/user/profile` : Allows to update a user's profile information 
 - `POST: /api/v1/user/favorites` : Allows to add favorite books per user
+- `DELETE: /api/v1/user/favorites` : Allows to delete of favorite books per user
 - `GET: /api/v1/books`: Returns books data and allows sorting, limiting and pagination of information. Also filter by category and author
 - `GET: /api/v1/books/:id`: Returns a specific book from the database
 - `POST: /api/v1/books`: Allows you to add a new book
@@ -116,7 +117,7 @@ BODY JSON
 }
 ```
 
-To add a favorite book:
+To add book to favorites:
 
 ```
 METHOD: POST
@@ -124,6 +125,22 @@ ENDPOINT:localhost:3000/api/v1/user/favorites
 AUTHORIZATION: Type Bearer Token
 ```
 
+
+```JSON
+BODY JSON
+
+{
+   "book_id":  
+}
+```
+
+To remove a book from favorites
+
+```
+METHOD: DELETE
+ENDPOINT:localhost:3000/api/v1/user/favorites
+AUTHORIZATION: Type Bearer Token
+```
 
 ```JSON
 BODY JSON

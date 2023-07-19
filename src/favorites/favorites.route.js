@@ -1,9 +1,11 @@
 import { Router } from "express";
 import { favoritesController} from "./favorites.controller.js";
-import { verifyToken, verifyUser } from "../middlewares/verify.js";
+import { verifyToken } from "../middlewares/verify.js";
 
 const router = Router()
 
-router.post("/user/favorites", verifyToken, favoritesController.addFavorite)
+router.get("/user/favorites", verifyToken, )
+router.post("/user/favorites", verifyToken, favoritesController.addFavorite);
+router.delete("/user/favorites", verifyToken, favoritesController.deleteFavorite)
 
 export default router;

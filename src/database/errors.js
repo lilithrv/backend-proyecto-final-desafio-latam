@@ -100,7 +100,7 @@ export const handleErrors = (code) => {
     case "414":
       return {
         status: 404,
-        message: ""
+        message: "The book is already added to your favorites"
       };
     case "415":
       return {
