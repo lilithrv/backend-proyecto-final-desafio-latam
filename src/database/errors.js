@@ -75,7 +75,7 @@ export const handleErrors = (code) => {
     case "409":
       return {
         status: 404,
-        message: "You must specify the post id"
+        message: "You must specify the id"
       };
     case "410":
       return {
@@ -105,7 +105,7 @@ export const handleErrors = (code) => {
     case "415":
       return {
         status: 404,
-        message: ""
+        message: "Book without enought stock"
       };
     default:
       return {

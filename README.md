@@ -20,12 +20,16 @@ The server provides the following routes:
 - `DELETE: /api/v1/user/favorites` : Allows to delete of favorite books per user
 - `GET: /api/v1/books`: Returns books data and allows sorting, limiting and pagination of information. Also filter by category and author
 - `GET: /api/v1/books/:id`: Returns a specific book from the database
-- `GET: /api/v1/books/latest`: Returns the last 10 books added
+- `GET: /api/v1/books/latest`: Returns the last 10 books added, it's for a carousel of books
+- `GET: /api/v1/books/popular`: Returns the 10 most buyed books, it's for a carousel of books
 - `POST: /api/v1/books`: Allows you to add a new book
 - `GET: /api/v1/authors`: Returns list of all authors belonging to the model books
 - `POST: /api/v1/authors` : Allows you to add a new author
 - `GET: /api/v1/categories`: Returns list of all categories belonging to the model books
 - `POST: /api/v1/categories` : Allows you to add a new category
+- `POST: /api/v1/user/purchase` : Allows to add the purchase and its detail to the database
+- `GET: /api/v1/user/carts` : Allows to view the user's purchase history
+- `GET: /api/v1/user/carts/:cart_id` : Allows you to view the details of a purchase
 
 <br>
 
@@ -118,6 +122,8 @@ BODY JSON
    "password": ""
 }
 ```
+<br>
+
 
 To view the user's favorite books:
 
@@ -126,6 +132,7 @@ METHOD: GET
 ENDPOINT:localhost:3000/api/v1/user/favorites
 AUTHORIZATION: Type Bearer Token
 ```
+<br>
 
 To add book to favorites:
 
@@ -143,6 +150,7 @@ BODY JSON
    "book_id":  
 }
 ```
+<br>
 
 To remove a book from favorites:
 
@@ -159,6 +167,7 @@ BODY JSON
    "book_id":  
 }
 ```
+<br>
 
 To get all books:
 
@@ -209,12 +218,24 @@ METHOD: GET
 ENDPOINT: localhost:3000/api/v1/books/:id
 ```
 
+<br>
+
 To get the last 10 books added:
 
 ```
 METHOD: GET
 ENDPOINT: localhost:3000/api/v1/books/latest
 ```
+<br>
+
+
+To get the top 10 most purchased books:
+
+```
+METHOD: GET
+ENDPOINT: localhost:3000/api/v1/books/popular
+```
+<br>
 
 To add a new book:
 
@@ -254,6 +275,7 @@ Example:
 }
 
 ```
+<br>
 
 To get the list of authors:
 
@@ -261,6 +283,7 @@ To get the list of authors:
 METHOD: GET
 ENDPOINT: localhost:3000/api/v1/authors
 ```
+<br>
 
 To add an author:
 
@@ -279,6 +302,7 @@ BODY JSON
    "name": ""
 }
 ```
+<br>
 
 To get the list of categories:
 
@@ -286,6 +310,7 @@ To get the list of categories:
 METHOD: GET
 ENDPOINT: localhost:3000/api/v1/categories
 ```
+<br>
 
 To add a category:
 
@@ -304,7 +329,44 @@ BODY JSON
    "name": ""
 }
 ```
+<br>
 
+To add a purchase and it's detail:
+
+```
+METHOD: POST
+ENDPOINT: localhost:3000/api/v1/user/purchase
+AUTHORIZATION: Type Bearer Token
+```
+
+
+```JSON
+BODY JSON
+
+{
+   "address_id":  ,
+   "cart_details": [ {"quantity": , "book_id": }, {"quantity": , "book_id": }]
+}
+```
+<br>
+
+To view purchase history:
+
+```
+METHOD: GET
+ENDPOINT: localhost:3000/api/v1/user/carts
+AUTHORIZATION: Type Bearer Token
+```
+
+<br>
+
+To view the details of a purchase:
+
+```
+METHOD: GET
+ENDPOINT: localhost:3000/api/v1/user/carts/:cart_id
+AUTHORIZATION: Type Bearer Token
+```
 
 <br>
 
