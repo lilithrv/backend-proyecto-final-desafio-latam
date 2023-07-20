@@ -131,6 +131,17 @@ const getLatest = async (req, res) => {
     }
 }
 
+const getPopular = async (req, res) => {
+    try {
+        const result = await bookModel.popular()
+        return res.json({ok: true, result: result.rows})
+    } catch (error) {
+        const { status, message } = handleErrors(error.code)
+        console.log(error, message)
+        return res.status(status).json({ ok: false, result: message });
+    }
+}
+
 export const bookController = {
     getAuthor,
     getCategory,
@@ -139,5 +150,6 @@ export const bookController = {
     getAllBooks,
     getOneBook,
     addBook,
-    getLatest
+    getLatest,
+    getPopular
 }
