@@ -33,7 +33,7 @@ const getLogin = async (req, res) => {
     try {
         //validación parámetros en middleware
         const token = jwt.sign({ email }, process.env.JWTPASSWORD, {
-            expiresIn: "1h",
+            expiresIn: "2h",
         })
         console.log("Token: ", token)
         res.json(token)
