@@ -26,6 +26,7 @@ The server provides the following routes:
 - `POST: /api/v1/authors` : Allows you to add a new author
 - `GET: /api/v1/categories`: Returns list of all categories belonging to the model books
 - `POST: /api/v1/categories` : Allows you to add a new category
+- `POST: /api/v1/user/purchase` : 
 
 <br>
 
@@ -302,6 +303,24 @@ BODY JSON
 
 {
    "name": ""
+}
+```
+
+To add a purchase and it's detail:
+
+```
+METHOD: POST
+ENDPOINT: localhost:3000/api/v1/user/purchase
+AUTHORIZATION: Type Bearer Token
+```
+
+
+```JSON
+BODY JSON
+
+{
+   "address_id":  ,
+   "cart_details": [ {"quantity": , "book_id": }, {"quantity": , "book_id": }]
 }
 ```
 
