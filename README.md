@@ -21,6 +21,7 @@ The server provides the following routes:
 - `GET: /api/v1/books`: Returns books data and allows sorting, limiting and pagination of information. Also filter by category and author
 - `GET: /api/v1/books/:id`: Returns a specific book from the database
 - `GET: /api/v1/books/latest`: Returns the last 10 books added, it's for a carousel of books
+- `GET: /api/v1/books/popular`: Returns the 10 most buyed books, it's for a carousel of books
 - `POST: /api/v1/books`: Allows you to add a new book
 - `GET: /api/v1/authors`: Returns list of all authors belonging to the model books
 - `POST: /api/v1/authors` : Allows you to add a new author
@@ -224,6 +225,15 @@ To get the last 10 books added:
 ```
 METHOD: GET
 ENDPOINT: localhost:3000/api/v1/books/latest
+```
+<br>
+
+
+To get the top 10 most purchased books:
+
+```
+METHOD: GET
+ENDPOINT: localhost:3000/api/v1/books/popular
 ```
 <br>
 
