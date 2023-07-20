@@ -28,6 +28,7 @@ The server provides the following routes:
 - `POST: /api/v1/categories` : Allows you to add a new category
 - `POST: /api/v1/user/purchase` : Allows to add the purchase and its detail to the database
 - `GET: /api/v1/user/carts` : Allows to view the user's purchase history
+- `GET: /api/v1/user/carts/:cart_id` : Allows you to view the details of a purchase
 
 <br>
 
@@ -347,6 +348,15 @@ ENDPOINT: localhost:3000/api/v1/user/carts
 AUTHORIZATION: Type Bearer Token
 ```
 
+<br>
+
+To view the details of a purchase:
+
+```
+METHOD: GET
+ENDPOINT: localhost:3000/api/v1/user/carts/:cart_id
+AUTHORIZATION: Type Bearer Token
+```
 
 <br>
 

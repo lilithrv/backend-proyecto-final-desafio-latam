@@ -54,9 +54,9 @@ const findAll = async (user_id) => {
           ) AS address
         FROM
           carts
-        INNER JOIN
+        JOIN
           addresses ON carts.address_id = addresses.id
-        INNER JOIN
+        JOIN
           communes ON addresses.commune_id = communes.id
         WHERE
           carts.user_id = $1;
@@ -69,9 +69,27 @@ const findAll = async (user_id) => {
     }
 }
 
+const findOne = async (cart_id, user_id) => {
+    try {
+        const text = `
+        SELECT cart_details.quantity, cart_details.price, cart_details.sub_total, carts.created_at, books.id as "books_id", books.title from cart_details 
+        JOIN carts ON cart_details.cart_id = carts.id
+        JOIN books ON cart_details.book_id = books.id
+        WHERE cart_id = $1 AND carts.user_id = $2           
+ `;
+        const result = await pool.query(text, [cart_id, user_id])
+        return result
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+
 export const cartModel = {
     createCart,
     createCartDetail,
     updateTotal,
-    findAll
+    findAll,
+    findOne
 }

@@ -42,7 +42,28 @@ const getCarts = async (req, res) => {
     try {
         const user = await userModel.findUserByEmail({ email: req.email })
         const result = await cartModel.findAll(user.rows[0].id)
-        return res.json({ok: true, result: result.rows})
+        return res.json({ ok: true, result: result.rows })
+    } catch (error) {
+        const { status, message } = handleErrors(error.code)
+        console.log(error, message)
+        return res.status(status).json({ ok: false, result: message });
+    }
+}
+
+const getOneCart = async (req, res) => {
+
+    const { cart_id } = req.params
+
+    try {
+        if (!cart_id.trim()) {
+            throw { code: "409" };
+        }
+        const user = await userModel.findUserByEmail({ email: req.email })
+        const result = await cartModel.findOne(cart_id, user.rows[0].id)
+        if (result.rows.length == 0) {
+            throw { code: "410" };
+        }
+        return res.json({ ok: true, result: result.rows })
     } catch (error) {
         const { status, message } = handleErrors(error.code)
         console.log(error, message)
@@ -53,4 +74,5 @@ const getCarts = async (req, res) => {
 export const cartController = {
     addCart,
     getCarts,
+    getOneCart
 }
