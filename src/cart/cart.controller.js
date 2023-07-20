@@ -19,7 +19,7 @@ const addCart = async (req, res) => {
             const quantity = item.quantity     //viene de cliente
             const sub_total = Number(price) * Number(quantity)
             total += sub_total
-            if(quantity > book.rows[0].stock){
+            if (quantity > book.rows[0].stock) {
                 throw { code: "415" };
             }
             const cartdetail = await cartModel.createCartDetail(quantity, price, sub_total, cart.rows[0].id, item.book_id)
@@ -29,8 +29,20 @@ const addCart = async (req, res) => {
 
         const result = await cartModel.updateTotal(total, cart.rows[0].id)
 
-        return res.json({ok: true, result: result.rows[0]})
+        return res.json({ ok: true, result: result.rows[0] })
 
+    } catch (error) {
+        const { status, message } = handleErrors(error.code)
+        console.log(error, message)
+        return res.status(status).json({ ok: false, result: message });
+    }
+}
+
+const getCarts = async (req, res) => {
+    try {
+        const user = await userModel.findUserByEmail({ email: req.email })
+        const result = await cartModel.findAll(user.rows[0].id)
+        return res.json({ok: true, result: result.rows})
     } catch (error) {
         const { status, message } = handleErrors(error.code)
         console.log(error, message)
@@ -40,4 +52,5 @@ const addCart = async (req, res) => {
 
 export const cartController = {
     addCart,
+    getCarts,
 }

@@ -35,8 +35,43 @@ const updateTotal = async (total, id) => {
     }
 }
 
+const findAll = async (user_id) => {
+    try {
+        const text = `
+        SELECT
+          created_at,
+          total,
+          json_build_object(
+            'id', addresses.id,
+            'address', addresses.address,
+            'commune',
+            json_build_object(
+              'id', communes.id,
+              'name', communes.name,
+              'region_id', communes.region_id
+            ),
+            'user_id', addresses.user_id
+          ) AS address
+        FROM
+          carts
+        INNER JOIN
+          addresses ON carts.address_id = addresses.id
+        INNER JOIN
+          communes ON addresses.commune_id = communes.id
+        WHERE
+          carts.user_id = $1;
+      `;
+        const result = await pool.query(text, [user_id])
+        return result
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
 export const cartModel = {
     createCart,
     createCartDetail,
-    updateTotal
+    updateTotal,
+    findAll
 }

@@ -13,5 +13,6 @@ const router = Router()
 //- Ver detalle de una compra: get db cart_details
 
 router.post("/user/purchase", verifyToken, cartController.addCart)
+router.get("/user/carts", verifyToken, cartController.getCarts)
 
 export default router;
