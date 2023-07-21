@@ -9,6 +9,7 @@ export const app = express();
 
 import bookRouter from "../src/book/book.route.js";
 import userRouter from "../src/user/user.route.js";
+import routerAddress from "../src/adresses/adresses.route.js";
 import favoritesRouter from "../src/favorites/favorites.route.js";
 import cartRouter from "../src/cart/cart.route.js";
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use("/api/v1", bookRouter);
 app.use("/api/v1", userRouter);
+app.use("/api/v1", routerAddress);
 app.use("/api/v1", favoritesRouter);
 app.use("/api/v1", cartRouter);
 
