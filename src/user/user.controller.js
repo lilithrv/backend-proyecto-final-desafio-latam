@@ -20,7 +20,7 @@ const addUser = async (req, res) => {
         const hashPassword = await bcrypt.hash(password, 10)
         const result = await userModel.createUser(name, lastname, email, username, birthday, hashPassword)
         console.log("Usuario registrado con éxito: ", result.rows[0])
-        return res.json({ ok: true, result: result.rows[0] })
+        return res.status(201).json({ ok: true, result: result.rows[0] })
     } catch (error) {
         const { status, message } = handleErrors(error.code)
         console.log(error, message)

@@ -35,7 +35,7 @@ const addCart = async (req, res) => {
 
         const result = await cartModel.updateTotal(total, cart.rows[0].id)
 
-        return res.json({ ok: true, result: result.rows[0] })
+        return res.status(201).json({ ok: true, result: result.rows[0] })
 
     } catch (error) {
         const { status, message } = handleErrors(error.code)

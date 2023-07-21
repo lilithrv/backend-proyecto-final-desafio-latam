@@ -76,7 +76,7 @@ BODY JSON
   "lastname": "",
   "email": "",
   "username": "",
-  "birthday": "",
+  "birthday": "YYYY/MM/DD",
   "password": ""
 }
 ```
