@@ -26,7 +26,8 @@ CREATE TABLE users(
 
 CREATE TABLE regions(
 	id SERIAL PRIMARY KEY,
-	name VARCHAR(50) NOT NULL
+	name VARCHAR(50) NOT NULL,
+	delivery_price INT
 );
 
 CREATE TABLE communes(
@@ -68,7 +69,8 @@ CREATE TABLE carts(
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	total INT,
 	user_id INT REFERENCES users(id) ON DELETE CASCADE,
-	address_id INT REFERENCES addresses(id) ON DELETE CASCADE
+	address_id INT REFERENCES addresses(id) ON DELETE CASCADE,
+	delivery_price INT
 );
 
 CREATE TABLE cart_details(

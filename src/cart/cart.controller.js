@@ -10,7 +10,13 @@ const addCart = async (req, res) => {
         const { address_id, cart_details } = req.body
         let total = 0
         const user = await userModel.findUserByEmail({ email: req.email })
-        const cart = await cartModel.createCart(user.rows[0].id, address_id)
+       
+        const region = await cartModel.findRegion(address_id)
+        const delivery_price = region.rows[0].delivery_price
+
+        const cart = await cartModel.createCart(user.rows[0].id, address_id, delivery_price)
+
+        total += Number(delivery_price)
 
         //await Promise.all, va a esperar la respuesta de todo lo que está adentro antes de seguir
         await Promise.all(cart_details.map(async item => {
