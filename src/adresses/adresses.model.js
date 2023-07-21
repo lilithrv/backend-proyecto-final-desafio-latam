@@ -13,8 +13,25 @@ const allAddresses = async (user_id) => {
   }
 };
 
+const addAddress = async (address, commune_id, user_id) => {
+  try {
+    const query =
+      "INSERT INTO addresses (address, commune_id, user_id) VALUES ($1, $2, $3)";
+    const values = [address, commune_id, user_id];
+    const { rows } = await pool.query(query, values);
+    if (!rows[0]) {
+      throw new Error("Error al agregar la dirección");
+    } else {
+      return rows;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //Query para crear direccion nueva de usuario
 
 export const addressesModel = {
   allAddresses,
+  addAddress,
 };
