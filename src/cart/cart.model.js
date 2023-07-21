@@ -1,10 +1,10 @@
 import { pool } from "../database/connection.js";
 
-const createCart = async (user_id, address_id) => {
+const createCart = async (user_id, address_id, delivery_price) => {
     try {
         //total, no se pasa altiro, para poder hacer el cálculo 
-        const text = "INSERT INTO carts (user_id, address_id) VALUES ($1, $2) RETURNING *"
-        const result = await pool.query(text, [user_id, address_id])
+        const text = "INSERT INTO carts (user_id, address_id, delivery_price) VALUES ($1, $2, $3) RETURNING *"
+        const result = await pool.query(text, [user_id, address_id, delivery_price])
         return result
     } catch (error) {
         console.log(error)
@@ -20,6 +20,16 @@ const createCartDetail = async (quantity, price, sub_total, cart_id, book_id) =>
     } catch (error) {
         console.log(error)
         throw error
+    }
+}
+
+const findRegion = async (address_id) => {
+    try {
+        const text = "SELECT delivery_price FROM regions WHERE id = $1"
+        const result = await pool.query(text, [address_id])
+        return result
+    } catch (error) {
+
     }
 }
 
@@ -39,6 +49,7 @@ const findAll = async (user_id) => {
     try {
         const text = `
         SELECT
+          carts.id,
           created_at,
           total,
           json_build_object(
@@ -89,6 +100,7 @@ const findOne = async (cart_id, user_id) => {
 export const cartModel = {
     createCart,
     createCartDetail,
+    findRegion,
     updateTotal,
     findAll,
     findOne
