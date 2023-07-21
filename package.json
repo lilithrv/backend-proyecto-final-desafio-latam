@@ -6,6 +6,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
     "test": "jest --forceExit",
     "test2": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test-exit": "node --experimental-vm-modules node_modules/jest/bin/jest.js --forceExit"
