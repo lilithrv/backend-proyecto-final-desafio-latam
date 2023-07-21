@@ -15,8 +15,9 @@ The server provides the following routes:
 - `POST: /api/v1/login` : Receives a user's credentials and returns a token generated with JWT. The email address of the registered user is included in the token payload
 - `GET: /api/v1/user/profile` : Allows to view user profile data
 - `PUT: /api/v1/user/profile` : Allows to update a user's profile information
-- `GET: /api/v1/user/id/addresses` : Returns all address from an user
-- `POST: /api/v1/user/id/addresses` : Allows to add a new address from the user
+- `GET: /api/v1/user/:id/addresses` : Returns all address from an user
+- `POST: /api/v1/user/:id/addresses` : Allows to add a new address from the user
+- `PUT: /api/v1/user/:id/addresses` : Allows to modify an address from the user
 - `GET: /api/v1/user/favorites`: Allows to view the user's favorite books
 - `POST: /api/v1/user/favorites` : Allows to add favorite books per user
 - `DELETE: /api/v1/user/favorites` : Allows to delete of favorite books per user
