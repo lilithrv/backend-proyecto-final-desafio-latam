@@ -4,7 +4,7 @@ dotenv.config();
 import pkg from "pg";
 const { Pool } = pkg;
 
-const connectionString = process.env.PG_URL;
+const connectionString = process.env.PGURL;
 
 export const pool = connectionString
     ? new Pool({
