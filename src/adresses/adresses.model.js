@@ -10,6 +10,7 @@ const allAddresses = async (user_id) => {
     return rows;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 
@@ -26,6 +27,7 @@ const addAddress = async (address, commune_id, user_id) => {
     }
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 
