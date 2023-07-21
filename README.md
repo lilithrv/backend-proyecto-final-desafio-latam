@@ -6,6 +6,11 @@ Members:
 - Leslie Reyes
 
 ## Description
+The third milestone consists of the backend development of the project. For this:
+- The different routes for the operation of the project are created.
+- Run the REST API capable of managing data from the PostgreSQL database
+- Implement user authentication and authorization with JWT.
+- Supertest package is used to test different REST API routes.
 
 ## Deploy
 - Server deployed in this [Link](https://node-bookstore-ww7n.onrender.com/api/v1)
