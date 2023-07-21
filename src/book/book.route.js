@@ -11,6 +11,10 @@ router.get("/authors", bookController.getAuthor);
 router.get("/categories", bookController.getCategory);
 router.post("/authors", verifyToken, verifyAdmin, bookController.addAuthor);
 router.post("/categories", verifyToken, verifyAdmin, bookController.addCategory)
-router.get("/books", bookController.getAllBooks)
+router.get("/books", bookController.getAllBooks);
+router.get("/books/latest", bookController.getLatest);  //para carrusel de landing page
+router.get("/books/popular", bookController.getPopular);  //para carrusel de landing page
+router.get("/books/:id", bookController.getOneBook);
+router.post("/books",verifyToken, verifyAdmin, bookController.addBook);
 
 export default router;

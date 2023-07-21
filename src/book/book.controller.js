@@ -1,4 +1,3 @@
-import { readFile } from 'fs/promises';
 import { handleErrors } from "../database/errors.js";
 import { bookModel } from "./book.model.js";
 
@@ -68,9 +67,74 @@ const addCategory = async (req, res) => {
 }
 
 const getAllBooks = async (req, res) => {
+    const { sort, limit, page, category_id, author_id } = req.query;
     try {
-        const result = await bookModel.findAll()
+        const result = await bookModel.findAll(sort, limit, page, category_id, author_id)
         return res.json({ ok: true, result });
+    } catch (error) {
+        const { status, message } = handleErrors(error.code)
+        console.log(error, message)
+        return res.status(status).json({ ok: false, result: message });
+    }
+}
+
+const getOneBook = async (req, res) => {
+
+    const { id } = req.params
+
+    try {
+        if (!id.trim()) {
+            throw { code: "409" };
+        }
+        const result = await bookModel.findOne(id)
+        if (result.rows.length === 0) {
+            throw { code: "410" };
+        }
+        return res.json({ ok: true, result: result.rows[0] })
+    } catch (error) {
+        const { status, message } = handleErrors(error.code)
+        console.log(error, message)
+        return res.status(status).json({ ok: false, result: message });
+    }
+}
+
+const addBook = async (req, res) => {
+
+    const { title, image, description, price, stock, category_id, author_id } = req.body
+
+    try {
+        if (price <= 0 || stock <= 0) {
+            throw { code: "412" };
+        }
+
+        if (!title || !image || !description || !price || !stock || !category_id || !author_id) {
+            throw { code: "411" };
+        }
+
+        const result = await bookModel.createBook(title, image, description, price, stock, category_id, author_id)
+        return res.json({ ok: true, result: result.rows[0] })
+    } catch (error) {
+        const { status, message } = handleErrors(error.code)
+        console.log(error, message)
+        return res.status(status).json({ ok: false, result: message });
+    }
+}
+
+const getLatest = async (req, res) => {
+    try {
+        const result = await bookModel.latest()
+        return res.json({ ok: true, result: result.rows })
+    } catch (error) {
+        const { status, message } = handleErrors(error.code)
+        console.log(error, message)
+        return res.status(status).json({ ok: false, result: message });
+    }
+}
+
+const getPopular = async (req, res) => {
+    try {
+        const result = await bookModel.popular()
+        return res.json({ok: true, result: result.rows})
     } catch (error) {
         const { status, message } = handleErrors(error.code)
         console.log(error, message)
@@ -83,5 +147,9 @@ export const bookController = {
     getCategory,
     addAuthor,
     addCategory,
-    getAllBooks
+    getAllBooks,
+    getOneBook,
+    addBook,
+    getLatest,
+    getPopular
 }

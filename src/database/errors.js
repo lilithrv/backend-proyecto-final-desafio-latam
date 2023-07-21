@@ -27,6 +27,11 @@ export const handleErrors = (code) => {
         status: 400,
         message: "Failed to connect to the database",
       };
+    case "23503":
+      return {
+        status: 404,
+        message: "Object does not exist"
+      };
     case "401":
       return {
         status: 404,
@@ -70,17 +75,37 @@ export const handleErrors = (code) => {
     case "409":
       return {
         status: 404,
-        message: ""
+        message: "You must specify the id"
       };
     case "410":
       return {
         status: 404,
-        message: ""
+        message: "File not found"
       };
     case "411":
       return {
         status: 404,
-        message: ""
+        message: "You must complete all fields: title, image, description, price, stock, category_id, author_id"
+      };
+    case "412":
+      return {
+        status: 404,
+        message: "Price and stock must be greater than 0"
+      };
+    case "413":
+      return {
+        status: 404,
+        message: "You must specify the book_id"
+      };
+    case "414":
+      return {
+        status: 404,
+        message: "The book is already added to your favorites"
+      };
+    case "415":
+      return {
+        status: 404,
+        message: "Book without enought stock"
       };
     default:
       return {

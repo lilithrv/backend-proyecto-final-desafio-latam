@@ -21,7 +21,7 @@ export const verifyToken = (req, res, next) => {
         next()
     } catch (error) {
         if (error instanceof jwt.TokenExpiredError) {
-            console.log({ message: "El token ha expirado, inicia sesión nuevamente" })
+            return console.log({ message: "El token ha expirado, inicia sesión nuevamente" })
         } else {
             const { status, message } = handleErrors(error.code)
             return res.status(status).json({ ok: false, result: message });
