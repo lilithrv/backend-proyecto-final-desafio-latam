@@ -1,5 +1,32 @@
 import { pool } from "../database/connection.js";
 
+
+//Direcciones para consumir en el formulario
+const findAllAddresses = async () => {
+  try {
+    const query = `SELECT 
+                    regions.id AS region_id,
+                    regions.name AS region_name,
+                    regions.delivery_price,
+                    json_agg(json_build_object('id', communes.id, 'name', communes.name)) AS communes
+                  FROM 
+                    regions
+                  INNER JOIN 
+                    communes ON regions.id = communes.region_id
+                  GROUP BY
+                    regions.id,
+                    regions.name,
+                    regions.delivery_price
+                  ORDER BY regions.id ASC`;
+
+    const { rows } = await pool.query(query);
+    return rows;
+  } catch (error) {
+    console.error("Error al obtener las locaciones:", error);
+    throw error;
+  }
+}
+
 const allAddresses = async (user_id) => {
   try {
     const query = "SELECT * FROM addresses WHERE user_id=$1";
@@ -43,6 +70,7 @@ const updateAddress = async (address, commune_id, user_id) => {
 };
 
 export const addressesModel = {
+  findAllAddresses,
   allAddresses,
   addAddress,
   updateAddress,

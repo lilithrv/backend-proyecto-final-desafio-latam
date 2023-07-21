@@ -1,6 +1,20 @@
 import { handleErrors } from "../database/errors.js";
 import { addressesModel } from "./adresses.model.js";
 
+
+
+const getAllRegionsCommunes = async (req, res) => {
+  try {
+    const result = await addressesModel.findAllAddresses();
+    console.log(result);
+    return res.status(200).json({ ok: true, result });
+  } catch (error) {
+    const { status, message } = handleErrors(error.code);
+    console.log(error, message);
+    return res.status(status).json({ ok: false, result: message });
+  }
+}
+
 const getAddress = async (req, res) => {
   try {
     const { user_id } = req.params;
@@ -55,4 +69,5 @@ export const addressController = {
   getAddress,
   newAddress,
   modifyAddress,
+  getAllRegionsCommunes
 };
