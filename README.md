@@ -6,7 +6,14 @@ Members:
 - Leslie Reyes
 
 ## Description
+The third milestone consists of the backend development of the project. For this:
+- The different routes for the operation of the project are created.
+- Run the REST API capable of managing data from the PostgreSQL database
+- Implement user authentication and authorization with JWT.
+- Supertest package is used to test different REST API routes.
 
+## Deploy
+- Server deployed in this [Link](https://node-bookstore-ww7n.onrender.com/api/v1)
 
 ## Routes
 The server provides the following routes:
@@ -74,7 +81,7 @@ BODY JSON
   "lastname": "",
   "email": "",
   "username": "",
-  "birthday": "",
+  "birthday": "YYYY/MM/DD",
   "password": ""
 }
 ```
@@ -394,5 +401,6 @@ Backend
 - Environment variables [dotenv](https://www.npmjs.com/package/dotenv)
 - [JSON Web Token (JWT)](https://jwt.io/) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object
 - [bcrypt.js](https://www.npmjs.com/package/bcryptjs): To hash and salt passwords securely
+- [Morgan](https://www.npmjs.com/package/morgan): HTTP request logger middleware for node.js
 - To install dependencies run: `npm install`
 - devDependencies [Nodemon](https://www.npmjs.com/package/nodemon) for run server and automatically restarting the node application when file changes, in the terminal run: `npm run dev`

@@ -39,8 +39,8 @@ export const handleErrors = (code) => {
       };
     case "402":
       return {
-        status: 404,
-        message: "Bearer format token required"
+        status: 401,
+        message: "Unauthorized: Bearer format token required"
       };
     case "403":
       return {
