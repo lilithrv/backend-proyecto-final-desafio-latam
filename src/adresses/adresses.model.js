@@ -42,6 +42,7 @@ const addAddress = async (address, commune_id, user_id) => {
   try {
     const query =
       "INSERT INTO addresses (address, commune_id, user_id) VALUES ($1, $2, $3) RETURNING *";
+  
     const values = [address, commune_id, user_id];
     const { rows } = await pool.query(query, values);
     if (!rows[0]) {
