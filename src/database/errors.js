@@ -107,6 +107,11 @@ export const handleErrors = (code) => {
         status: 404,
         message: "Book without enought stock"
       };
+      case "416":
+        return {
+          status: 401,
+          message: "Expired token"
+        };
     default:
       return {
         status: 500,
