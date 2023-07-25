@@ -21,7 +21,7 @@ export const verifyToken = (req, res, next) => {
         next()
     } catch (error) {
         if (error instanceof jwt.TokenExpiredError) {
-            return console.log({ message: "El token ha expirado, inicia sesión nuevamente" })
+            throw { code: "416" };
         } else {
             const { status, message } = handleErrors(error.code)
             return res.status(status).json({ ok: false, result: message });
@@ -62,7 +62,7 @@ export const verifyAdmin = async (req, res, next) => {
             throw { code: "408" };
         }
         next()
-    } catch(error) {
+    } catch (error) {
         const { status, message } = handleErrors(error.code)
         console.log(error, message)
         return res.status(status).json({ ok: false, result: message });
