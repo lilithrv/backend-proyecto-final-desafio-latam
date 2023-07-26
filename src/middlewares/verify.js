@@ -21,7 +21,8 @@ export const verifyToken = (req, res, next) => {
         next()
     } catch (error) {
         if (error instanceof jwt.TokenExpiredError) {
-            throw { code: "416" };
+            const { status, message } = handleErrors("416")
+            return res.status(status).json({ ok: false, result: message });
         } else {
             const { status, message } = handleErrors(error.code)
             return res.status(status).json({ ok: false, result: message });
