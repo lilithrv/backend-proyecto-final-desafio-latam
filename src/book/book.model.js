@@ -123,7 +123,7 @@ const findAll = async (sort, limit, page, category_id, author_id) => {
 
 const findOne = async (id) => {
     try {
-        const text = "SELECT * FROM books WHERE id = $1";
+        const text = "SELECT books.id, books.title, books.image, books.description, books.price, books.stock, json_build_object('id', categories.id, 'name', categories.name) as category, json_build_object('id', authors.id, 'name', authors.name) as author FROM books INNER JOIN categories ON books.category_id = categories.id INNER JOIN authors ON books.author_id = authors.id WHERE books.id = $1";
         const result = await pool.query(text, [id])
         return result
     } catch (error) {
