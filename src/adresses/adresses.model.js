@@ -32,7 +32,7 @@ const findAllAddresses = async () => {
 const allAddresses = async (user_id) => {
   try {
     const query = `
-      SELECT  ad.id, com.name AS commune_name, reg.name AS region_name, ad.address
+      SELECT  ad.id, com.name AS commune_name, reg.name AS region_name, ad.address, reg.delivery_price
       FROM addresses AS ad
       JOIN communes AS com ON ad.commune_id = com.id
       JOIN regions AS reg ON reg.id = com.region_id
@@ -78,9 +78,19 @@ const updateAddress = async (address, commune_id, user_id) => {
   }
 };
 
+const removeAddress = async (id) => {
+  const query = "DELETE FROM addresses WHERE id = $1 RETURNING *";
+  const { rows } = await pool.query(query, [id]);
+  if (rows.length === 0) {
+    throw { code: 404 };
+  }
+  return rows[0];
+}
+
 export const addressesModel = {
   findAllAddresses,
   allAddresses,
   addAddress,
   updateAddress,
+  removeAddress,
 };
