@@ -66,9 +66,22 @@ const modifyAddress = async (req, res) => {
   }
 };
 
+const deleteAddress = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await addressesModel.removeAddress(id);
+    return res.status(204).json({ ok: true, result });
+  } catch (error) {
+    const { status, message } = handleErrors(error.code);
+    console.error(error, message);
+    return res.status(status).json({ ok: false, result: message });
+  }
+}
+
 export const addressController = {
   getAddress,
   newAddress,
   modifyAddress,
   getAllRegionsCommunes,
+  deleteAddress,
 };
