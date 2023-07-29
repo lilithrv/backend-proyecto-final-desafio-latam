@@ -167,7 +167,7 @@ const updateStock = async (stock, id) => {
 
 const popular = async () => {
     try {
-        const text = "SELECT books.id, books.image,books.title, COUNT(carts.id) AS purchase_count FROM books JOIN cart_details ON books.id = cart_details.book_id JOIN carts ON cart_details.cart_id = carts.id GROUP BY books.id ORDER BY purchase_count DESC LIMIT 10"
+        const text = "SELECT books.id, books.image,books.title, books.price, COUNT(carts.id) AS purchase_count FROM books JOIN cart_details ON books.id = cart_details.book_id JOIN carts ON cart_details.cart_id = carts.id GROUP BY books.id ORDER BY purchase_count DESC LIMIT 10"
         const result = await pool.query(text)
         return result
     } catch (error) {
