@@ -12,6 +12,7 @@ const router = Router()
 //- Ver histórico de compras: get de db carts
 //- Ver detalle de una compra: get db cart_details
 
+//user no requiere id en params, porque se obtiene id de req.email --> ver controller
 router.post("/user/purchase", verifyToken, cartController.addCart);
 router.get("/user/carts", verifyToken, cartController.getCarts);
 router.get("/user/carts/:cart_id", verifyToken, cartController.getOneCart)
