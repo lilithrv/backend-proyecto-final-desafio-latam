@@ -87,10 +87,22 @@ const removeAddress = async (id) => {
   return rows[0];
 }
 
+const countPurchases = async (address_id) => {
+  try {
+    const query = "SELECT * FROM carts WHERE address_id = $1"
+    const { rows } = await pool.query(query, [address_id])
+    return rows
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export const addressesModel = {
   findAllAddresses,
   allAddresses,
   addAddress,
   updateAddress,
   removeAddress,
+  countPurchases
 };
