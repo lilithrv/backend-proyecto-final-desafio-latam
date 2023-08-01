@@ -10,8 +10,8 @@ const addCart = async (req, res) => {
         const { address_id, cart_details } = req.body
         let total = 0
         const user = await userModel.findUserByEmail({ email: req.email })
-       
-        const region = await cartModel.findRegion(address_id)
+        
+        const region = await cartModel.findDeliveryPriceByAddress(address_id)
         const delivery_price = region.rows[0].delivery_price
 
         const cart = await cartModel.createCart(user.rows[0].id, address_id, delivery_price)

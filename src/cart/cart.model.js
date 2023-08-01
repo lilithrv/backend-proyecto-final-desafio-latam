@@ -33,6 +33,19 @@ const findRegion = async (address_id) => {
     }
 }
 
+
+const findDeliveryPriceByAddress = async (address_id) => {
+    try {
+        const text = "SELECT regions.delivery_price FROM addresses join communes on communes.id = addresses.commune_id join regions on regions.id = communes.region_id  WHERE addresses.id = $1"
+        const result = await pool.query(text, [address_id])
+        return result
+    } catch (error) {
+
+    }
+}
+
+
+
 const updateTotal = async (total, id) => {
     try {
         //total se suma al carro después de haberlo calculado
@@ -103,5 +116,6 @@ export const cartModel = {
     findRegion,
     updateTotal,
     findAll,
-    findOne
+    findOne,
+    findDeliveryPriceByAddress
 }
