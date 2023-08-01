@@ -69,6 +69,10 @@ const modifyAddress = async (req, res) => {
 const deleteAddress = async (req, res) => {
   const { id } = req.params;
   try {
+    const count = await addressesModel.countPurchases(id)
+    if(count.length > 0){
+      return res.status(400).json({ok: false, message: "No puedes borrar esta dirección, porque tienes compras asociadas"})
+    }
     const result = await addressesModel.removeAddress(id);
     return res.status(204).json({ ok: true, result });
   } catch (error) {
