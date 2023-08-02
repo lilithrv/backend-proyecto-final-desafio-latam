@@ -15,8 +15,9 @@ The third milestone consists of the backend development of the project. For this
 - Implement user authentication and authorization with JWT.
 - Supertest package is used to test different REST API routes.
 
-## Deploy
-
+## Repositories and deploy
+- Frontend repository [here](https://github.com/proyecto-desafio-latam/frontend-proyecto-final-desafio-latam)
+- To view the client application deployed, please visit [Mundo Libros](https://mundolibros-store.netlify.app/)
 - Server deployed in this [Link](https://node-bookstore-ww7n.onrender.com/api/v1)
 
 ## Routes
