@@ -45,7 +45,6 @@ const findDeliveryPriceByAddress = async (address_id) => {
 }
 
 
-
 const updateTotal = async (total, id) => {
     try {
         //total se suma al carro después de haberlo calculado
