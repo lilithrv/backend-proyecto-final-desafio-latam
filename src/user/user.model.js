@@ -36,7 +36,7 @@ const update = async (id, name, lastname, username, password) => {
             text += ", password = $4 WHERE id = $5"
             values.push(password, id)
         } 
-        text += " RETURNING *"
+        text += " RETURNING name, lastname, username, email, birthday, is_admin"
         const result = await pool.query(text, values)
         return result
     } catch (error) {
