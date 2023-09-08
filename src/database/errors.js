@@ -35,7 +35,7 @@ export const handleErrors = (code) => {
     case "401":
       return {
         status: 404,
-        message: "You must complete all fields: name, lastname, email, username, birthday, password",
+        message: "You must complete all fields: name, lastname, email, birthday, password",
       };
     case "402":
       return {

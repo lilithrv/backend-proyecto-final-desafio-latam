@@ -4,7 +4,7 @@ import { handleErrors } from "../database/errors.js";
 import { userModel } from "./user.model.js";
 
 const addUser = async (req, res) => {
-    const { name, lastname, email, username, birthday, password } = req.body
+    const { name, lastname, email, birthday, password } = req.body
     try {
         const existingUser = await userModel.findUserByEmail({ email })
         console.log(existingUser)
@@ -13,12 +13,12 @@ const addUser = async (req, res) => {
             throw { code: "407" };
         }
 
-        if (!name || !lastname || !email || !username || !birthday || !password) {
+        if (!name || !lastname || !email || !birthday || !password) {
             throw { code: "401" };
         }
 
         const hashPassword = await bcrypt.hash(password, 10)
-        const result = await userModel.createUser(name, lastname, email, username, birthday, hashPassword)
+        const result = await userModel.createUser(name, lastname, email, birthday, hashPassword)
         console.log("Usuario registrado con éxito: ", result.rows[0])
         return res.status(201).json({ ok: true, result: result.rows[0] })
     } catch (error) {
@@ -57,7 +57,7 @@ const getProfile = async (req, res) => {
 
 const updateUser = async (req, res) => {
 
-    const { name, lastname, username, password } = req.body
+    const { name, lastname, password } = req.body
 
     try {
         const user = await userModel.findUserByEmail({ email: req.email })
@@ -65,7 +65,7 @@ const updateUser = async (req, res) => {
         if (password.trim() !== "") {
             hashPassword = await bcrypt.hash(password, 10)
         }
-        const result = await userModel.update(user.rows[0].id, name, lastname, username, hashPassword)
+        const result = await userModel.update(user.rows[0].id, name, lastname, hashPassword)
         return res.status(200).json({ ok: true, result: result.rows[0] })
     } catch (error) {
         const { status, message } = handleErrors(error.code)
