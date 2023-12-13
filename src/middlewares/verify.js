@@ -70,3 +70,17 @@ export const verifyAdmin = async (req, res, next) => {
     }
 }
 
+export const refreshToken = async (req, res) => {
+
+    // const expiresIn = 60 * 60
+
+    try {
+        const refresh = jwt.sign({ email }, process.env.JWTREFRESH, {
+            expiresIn: "1h",
+        })
+    } catch (error) {
+        const { status, message } = handleErrors(error.code)
+        console.log(error, message)
+        return res.status(status).json({ ok: false, result: message });
+    }
+}
